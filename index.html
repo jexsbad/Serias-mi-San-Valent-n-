@@ -249,7 +249,7 @@
     </div>
 
     <div class="success-screen" id="successScreen">
-        <h1>¡Sabía que ibas a decir que sí!❤️</h1>
+        <h1>¡Sabía que ibas a decir que sí!😏😹❤️</h1>
     </div>
 
     <script>
@@ -259,12 +259,15 @@
             "Ojitos lindos, no me hagas sufrir 🥺",
             "Si dices que no, mi corazoncito se romperá 💔",
             "Voy a llorar si sigues dándole a 'No' 🥹😭",
-            "Por favor, di que sí, mi amor ❤️"
+            "Por favor, di que sí, mi amor ❤️" , "enserio me diras que no?🥺" ,
+            "y si te invito un heladito y un Bechito😏😹", 
+            "ya bueno esta bien respeto tu decisión aun asi te sigo queriendo ❤️🫶🏾"
+    
         ];
         
         let messageIndex = 0;
         let noAttempts = 0;
-        const maxAttempts = 5;
+        const maxAttempts = 9;
 
         function createFlowers() {
             const flowers = ['🌸', '🌺', '🌹', '🌷', '💐', '🌻'];
@@ -344,7 +347,7 @@
             if (noAttempts >= maxAttempts) {
                 const noButton = document.getElementById("noButton");
                 noButton.style.display = "none";
-                showMessage("¡Ya no hay opción de decir que no! 😘");
+                showMessage("¡Ya no hay opción de decir que no! 😘😛");
             }
         }
 
