@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Mi Carta de San Valentín</title>
+    <meta name="description" content="Una carta especial de San Valentín">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            background: linear-gradient(45deg, #ff69b4, #ff1493);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            overflow-x: hidden;
+        }
+
+        .container {
+            position: relative;
+            text-align: center;
+            padding: 20px;
+            min-height: 400px;
+            width: 100%;
+            max-width: 600px;
+        }
+
+        .envelope {
+            width: 300px;
+            height: 200px;
+            background: linear-gradient(45deg, #d81b60, #e91e63);
+            position: relative;
+            border-radius: 15px;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.5s ease;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            margin: 0 auto;
+            transform-style: preserve-3d;
+        }
+
+        .envelope:hover {
+            transform: scale(1.05) rotate(2deg);
+        }
+
+        .envelope::after {
+            content: "Toca aquí, my girl 🤭";
+            color: white;
+            font-size: 24px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .letter {
+            display: none;
+            width: 280px;
+            background: white;
+            position: relative;
+            margin: 20px auto;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            font-size: 24px;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: letterAppear 1s ease forwards;
+        }
+
+        .heart {
+            display: none;
+            font-size: 120px;
+            color: #ff1493;
+            position: absolute;
+            right: -80px;
+            top: 50%;
+            transform: translateY(-50%);
+            animation: heartbeat 1.2s ease-in-out infinite;
+            text-shadow: 0 0 20px rgba(255,20,147,0.5);
+        }
+
+        .buttons {
+            display: none;
+            margin-top: 30px;
+            position: relative;
+            height: 100px;
+            opacity: 0;
+            animation: buttonsAppear 0.5s ease forwards;
+            animation-delay: 0.5s;
+        }
+
+        button {
+            font-size: 22px;
+            padding: 15px 35px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            margin: 15px;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .yes {
+            background: linear-gradient(45deg, #4CAF50, #45a049);
+            color: white;
+            position: relative;
+            z-index: 2;
+        }
+
+        .no {
+            background: linear-gradient(45deg, #f44336, #d32f2f);
+            color: white;
+            position: absolute;
+            z-index: 1;
+        }
+
+        .message-container {
+            min-height: 50px;
+            margin: 20px 0;
+        }
+
+        #message {
+            font-size: 24px;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            margin: 0;
+            padding: 10px;
+            transition: opacity 0.3s ease;
+        }
+
+        .success-screen {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, #ff69b4, #ff1493);
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            z-index: 1000;
+        }
+
+        .success-screen h1 {
+            font-size: 48px;
+            color: white;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.3);
+            margin-bottom: 20px;
+        }
+
+        .flower {
+            position: absolute;
+            font-size: 30px;
+            opacity: 0;
+            animation: flowerSpin 1.5s ease-out forwards;
+        }
+
+        .flower-rain {
+            position: fixed;
+            pointer-events: none;
+            z-index: 1000;
+        }
+
+        @keyframes openEnvelope {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.2) rotate(10deg); opacity: 0.5; }
+            100% { transform: scale(0); opacity: 0; }
+        }
+
+        @keyframes letterAppear {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes heartbeat {
+            0% { transform: translateY(-50%) scale(1); }
+            50% { transform: translateY(-50%) scale(1.1); }
+            100% { transform: translateY(-50%) scale(1); }
+        }
+
+        @keyframes buttonsAppear {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes flowerSpin {
+            0% { opacity: 0; transform: scale(0) rotate(0deg); }
+            100% { opacity: 1; transform: scale(1) rotate(360deg); }
+        }
+
+        @keyframes flowerFall {
+            0% { transform: translateY(-10vh) rotate(0deg); }
+            100% { transform: translateY(100vh) rotate(360deg); }
+        }
+
+        @media (max-width: 600px) {
+            .envelope {
+                width: 250px;
+                height: 160px;
+            }
+            
+            .letter {
+                width: 220px;
+                font-size: 20px;
+                padding: 20px;
+            }
+            
+            .heart {
+                font-size: 80px;
+                right: -40px;
+            }
+            
+            .success-screen h1 {
+                font-size: 32px;
+                padding: 0 20px;
+            }
+
+            button {
+                font-size: 18px;
+                padding: 12px 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="envelope" id="envelope" onclick="openLetter()"></div>
+        <div class="letter" id="letter">
+            <p>Mi amorcito, ¿quieres ser mi San Valentín? ❤️</p>
+        </div>
+        <div class="heart" id="heart">❤️</div>
+        <div class="message-container">
+            <p id="message"></p>
+        </div>
+        <div class="buttons" id="buttons">
+            <button class="yes" onclick="confirmYes()">Sí ❤️</button>
+            <button class="no" id="noButton" onmouseover="avoidButton()" onclick="tryNo()">No 💔</button>
+        </div>
+    </div>
+
+    <div class="success-screen" id="successScreen">
+        <h1>¡Sabía que ibas a decir que sí!❤️</h1>
+    </div>
+
+    <script>
+        const messages = [
+            "¿Pero por qué no? 🥺❤️ Vamos, di que sí 🥹",
+            "No seas mala, mi amorcito, di que sí 😘",
+            "Ojitos lindos, no me hagas sufrir 🥺",
+            "Si dices que no, mi corazoncito se romperá 💔",
+            "Voy a llorar si sigues dándole a 'No' 🥹😭",
+            "Por favor, di que sí, mi amor ❤️"
+        ];
+        
+        let messageIndex = 0;
+        let noAttempts = 0;
+        const maxAttempts = 5;
+
+        function createFlowers() {
+            const flowers = ['🌸', '🌺', '🌹', '🌷', '💐', '🌻'];
+            const container = document.getElementById('successScreen');
+            
+            for (let i = 0; i < 20; i++) {
+                const flower = document.createElement('div');
+                flower.className = 'flower';
+                flower.textContent = flowers[Math.floor(Math.random() * flowers.length)];
+                flower.style.left = `${Math.random() * 100}%`;
+                flower.style.top = `${Math.random() * 100}%`;
+                flower.style.animationDelay = `${Math.random() * 2}s`;
+                container.appendChild(flower);
+            }
+        }
+
+        function createFlowerRain() {
+            setInterval(() => {
+                const flower = document.createElement('div');
+                flower.className = 'flower-rain';
+                const flowers = ['🌸', '🌺', '🌹', '🌷', '💐', '🌻'];
+                flower.innerHTML = flowers[Math.floor(Math.random() * flowers.length)];
+                flower.style.left = Math.random() * 100 + 'vw';
+                flower.style.animation = `flowerFall ${Math.random() * 2 + 3}s linear`;
+                flower.style.fontSize = Math.random() * 20 + 10 + 'px';
+                document.body.appendChild(flower);
+
+                setTimeout(() => flower.remove(), 5000);
+            }, 300);
+        }
+
+        function openLetter() {
+            const envelope = document.getElementById("envelope");
+            const letter = document.getElementById("letter");
+            const heart = document.getElementById("heart");
+            const buttons = document.getElementById("buttons");
+
+            envelope.style.animation = "openEnvelope 1s ease forwards";
+            
+            setTimeout(() => {
+                envelope.style.display = "none";
+                letter.style.display = "block";
+                heart.style.display = "block";
+                buttons.style.display = "block";
+            }, 500);
+        }
+
+        function avoidButton() {
+            const button = document.getElementById("noButton");
+            const container = document.querySelector('.buttons');
+            const rect = container.getBoundingClientRect();
+            
+            let x = Math.random() * (rect.width - button.offsetWidth);
+            let y = Math.random() * (rect.height - button.offsetHeight);
+            
+            x = Math.max(0, Math.min(x, rect.width - button.offsetWidth));
+            y = Math.max(0, Math.min(y, rect.height - button.offsetHeight));
+            
+            button.style.transform = `translate(${x}px, ${y}px)`;
+        }
+
+        function showMessage(text) {
+            const message = document.getElementById("message");
+            message.style.opacity = '0';
+            
+            setTimeout(() => {
+                message.innerHTML = text;
+                message.style.opacity = '1';
+            }, 300);
+        }
+
+        function tryNo() {
+            noAttempts++;
+            showMessage(messages[messageIndex]);
+            messageIndex = (messageIndex + 1) % messages.length;
+
+            if (noAttempts >= maxAttempts) {
+                const noButton = document.getElementById("noButton");
+                noButton.style.display = "none";
+                showMessage("¡Ya no hay opción de decir que no! 😘");
+            }
+        }
+
+        function confirmYes() {
+            document.querySelector('.container').style.display = 'none';
+            const successScreen = document.getElementById("successScreen");
+            successScreen.style.display = 'flex';
+            createFlowers();
+            createFlowerRain();
+        }
+    </script>
+</body>
+</html>
